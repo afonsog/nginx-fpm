@@ -161,6 +161,8 @@ RUN apk update && apk add --no-cache mysql-client \
   && docker-php-ext-install mysql \
   && docker-php-ext-install ldap \
   && docker-php-ext-install soap \
+  && docker-php-ext-install sockets \
+  && docker-php-ext-enable sockets \
   && docker-php-ext-install mbstring pdo pdo_mysql zip \
   && apk del autoconf mariadb sqlite alpine-sdk --purge \
   && cd /usr/local/bin \
@@ -168,6 +170,7 @@ RUN apk update && apk add --no-cache mysql-client \
 	&& mv composer.phar composer \
 	&& composer global require drush/drush:7.* \
 	&& rm -rf /var/cache/apk/*
+
 
 ENV PATH "/root/.composer/vendor/bin:${PATH}"
 
@@ -181,4 +184,3 @@ COPY ./myentrypoint /usr/local/bin/drupal-start
 
 #CMD php-fpm -D ; nginx '-g daemon off;'
 CMD ["/usr/local/bin/drupal-start"]
-

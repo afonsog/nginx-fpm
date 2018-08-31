@@ -2,6 +2,7 @@
 
 set -e
 
+chown www-data:www-data /var/www/html/sites/default/files
 echo -e "<?php echo OK ?>" > /var/www/html/_health_check.php 
 php-fpm -D
 nginx "-g daemon off;"
